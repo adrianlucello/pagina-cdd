@@ -7,10 +7,17 @@
     <meta name="description" content="Conferência CDD - Experiência transformadora para jovens">
     <link rel="preload" href="/videodalogo.mp4" as="video" type="video/mp4">
     <link rel="preload" href="/line-up.webp" as="image" type="image/webp">
+    <link rel="dns-prefetch" href="//github.com">
+    <link rel="dns-prefetch" href="//fonts.googleapis.com">
     <title>CDD Conferência</title>
+    <style>
+      /* Estilos críticos para melhorar o LCP */
+      body { margin: 0; padding: 0; }
+      .banner-image-mobile { width: 100%; height: auto; object-fit: cover; }
+    </style>
   </head>
   <body>
     <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
+    <script type="module" src="/src/main.jsx" defer></script>
   </body>
 </html>

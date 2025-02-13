@@ -32,11 +32,12 @@ const VideoHeader = () => {
           preload="metadata"
           disablePictureInPicture
           controlsList="nodownload noplaybackrate"
+          width="100%"
+          height="auto"
         >
           <source 
             src="/videodalogo.mp4" 
             type="video/mp4" 
-            media="(max-width: 768px)"
           />
           Seu navegador não suporta vídeos.
         </video>
@@ -80,6 +81,7 @@ const BannerHeader = () => {
           loading="lazy"
           width="100%"
           height="460"
+          decoding="async"
         />
         
         {/* Versão Mobile */}
@@ -90,6 +92,7 @@ const BannerHeader = () => {
           loading="lazy"
           width="100%"
           height="460"
+          decoding="async"
         />
       </div>
 
