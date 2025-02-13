@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import '../styles/video.css';
 import '../styles/button.css';
 import '../styles/legacy-text.css';
@@ -6,21 +6,53 @@ import '../styles/banner.css';
 
 // Header 1: Vídeo em loop
 const VideoHeader = () => {
-  const videoRef = React.useRef(null);
+  const videoRef = useRef(null);
+  const [videoError, setVideoError] = useState(false);
 
-  React.useEffect(() => {
-    const playVideo = async () => {
-      try {
-        if (videoRef.current) {
-          await videoRef.current.play();
-        }
-      } catch (error) {
-        console.error("Erro ao reproduzir vídeo:", error);
+  useEffect(() => {
+    const videoElement = videoRef.current;
+    
+    const handleCanPlay = () => {
+      const playPromise = videoElement.play();
+      
+      if (playPromise !== undefined) {
+        playPromise
+          .then(() => {
+            // Vídeo começou a reproduzir
+            console.log('Vídeo reproduzindo');
+          })
+          .catch(error => {
+            console.error('Erro ao reproduzir vídeo:', error);
+            setVideoError(true);
+          });
       }
     };
 
-    playVideo();
+    const handleError = (e) => {
+      console.error('Erro no vídeo:', e);
+      setVideoError(true);
+    };
+
+    if (videoElement) {
+      videoElement.addEventListener('canplay', handleCanPlay);
+      videoElement.addEventListener('error', handleError);
+
+      return () => {
+        videoElement.removeEventListener('canplay', handleCanPlay);
+        videoElement.removeEventListener('error', handleError);
+      };
+    }
   }, []);
+
+  if (videoError) {
+    return (
+      <section className="w-full bg-black flex justify-center items-center">
+        <div className="video-container">
+          <p>Erro ao carregar o vídeo</p>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section className="w-full bg-black flex justify-center items-center">
@@ -29,11 +61,13 @@ const VideoHeader = () => {
           ref={videoRef}
           muted
           playsInline
-          preload="metadata"
+          loop
+          preload="auto"
           disablePictureInPicture
           controlsList="nodownload noplaybackrate"
           width="100%"
           height="auto"
+          poster="/videodalogo-poster.jpg"  // Adicionar um poster para melhor UX
         >
           <source 
             src="/videodalogo.mp4" 

@@ -8,13 +8,15 @@
 .video-container video {
   width: 100%;
   height: auto;
+  max-height: 100vh;
+  object-fit: cover;
   display: block;
 }
 
 /* Regras específicas para mobile */
 @media (max-width: 768px) {
   .video-container {
-    aspect-ratio: 12 / 8;
+    aspect-ratio: 16 / 9;
   }
 
   .video-container video {
@@ -25,8 +27,6 @@
     min-height: 100%;
     width: auto;
     height: auto;
-    object-fit: cover;
-    object-position: center;
     transform: translate(-50%, -50%);
   }
 }
@@ -34,13 +34,22 @@
 /* Regras específicas para desktop */
 @media (min-width: 769px) {
   .video-container {
-    width: 100%;
-    max-width: none;
+    max-width: 100%;
+    overflow: hidden;
   }
 
   .video-container video {
     width: 100%;
     height: auto;
     object-fit: contain;
+  }
+}
+
+/* Fallback para navegadores que não suportam aspect-ratio */
+@supports not (aspect-ratio: 16 / 9) {
+  .video-container::before {
+    content: '';
+    display: block;
+    padding-top: 56.25%; /* 16:9 aspect ratio */
   }
 }
