@@ -1,0 +1,53 @@
+@font-face {
+  font-family: 'SKPupok';
+  src: url('../fonts/SKPupok-Solid.ttf') format('truetype');
+}
+
+.legacy-section {
+    width: 100vw;
+    padding: 0.3rem 0;
+    background: #ffeaf8;
+    margin: 0;
+    overflow: hidden;
+    position: relative;
+    box-shadow: 20px 15px 0px 0px #222222;
+    z-index: 1;
+}
+
+.legacy-text {
+  font-family: 'SKPupok', sans-serif;
+  color: rgb(0, 0, 0);
+  text-transform: uppercase;
+  white-space: nowrap;
+  padding: 0 1rem;
+  display: inline-block;
+  text-align: center;
+  font-size: 1.2rem;
+}
+
+.legacy-marquee {
+  display: flex;
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  justify-content: center;
+}
+
+.legacy-text-repeat {
+  display: flex;
+  justify-content: center;
+  min-width: 100%;
+  animation: marquee 20s linear infinite;
+  gap: 1rem;
+  position: relative;
+  left: -50%;
+}
+
+@keyframes marquee {
+  0% {
+    transform: translateX(50%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+} 

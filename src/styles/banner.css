@@ -1,0 +1,48 @@
+
+.banner-section {
+  width: 100%;
+  height: auto;
+  position: relative;
+  overflow: hidden;
+}
+
+.banner-container {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+/* Imagem Desktop */
+.banner-image-desktop {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: none; /* Esconde por padrão */
+}
+
+/* Imagem Mobile */
+.banner-image-mobile {
+  width: 100%;
+  height: 460px;
+  object-fit: cover;
+  display: block; /* Mostra por padrão */
+}
+
+/* Media Query para Desktop */
+@media (min-width: 768px) {
+  .banner-image-desktop {
+    display: block; /* Mostra no desktop */
+  }
+  
+  .banner-image-mobile {
+    display: none; /* Esconde no desktop */
+  }
+}
+
+.banner-button-container {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+} 

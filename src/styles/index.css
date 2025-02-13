@@ -1,0 +1,52 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: 'pixter-granular';
+  src: url('../fonts/pixter-granular.woff2') format('woff2'),
+       url('../fonts/pixter-granular.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'SKPupok-Solid';
+  src: url('../fonts/SKPupok-Solid.woff2') format('woff2'),
+       url('../fonts/SKPupok-Solid.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Autom-Bold';
+  src: url('../fonts/Autom-Bold.woff2') format('woff2'),
+       url('../fonts/Autom-Bold.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'extenda-extendable';
+  src: url('../fonts/extenda-extendable.woff2') format('woff2'),
+       url('../fonts/extenda-extendable.ttf') format('truetype');
+}
+
+/* Estilos personalizados para cada seção */
+@layer components {
+  .header-section {
+    @apply w-full relative bg-white;
+  }
+  
+  .cdd-button {
+    @apply bg-cdd-pink text-black px-6 py-3 border-2 border-black 
+           hover:bg-white hover:text-cdd-pink transition-colors duration-300
+           font-extenda text-lg cursor-pointer;
+  }
+
+  .legacy-text {
+    @apply font-skpupok text-black whitespace-nowrap;
+  }
+
+  .default-text {
+    @apply font-autom;
+  }
+
+  .number-text {
+    @apply font-extenda;
+  }
+} 

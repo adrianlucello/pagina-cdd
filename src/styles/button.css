@@ -1,0 +1,39 @@
+@font-face {  
+  font-family: 'Pixter';  
+  src: url('../fonts/pixter-granular.ttf') format('truetype');  
+  font-weight: normal;  
+  font-style: normal;  
+}  
+
+.cdd-button {  
+ background-color: #e4379b !important;
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border: 1px solid #222222 !important;
+    border-radius: 0;
+    font-size: 1.125rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: -14px 15px 0px 0px #222222;
+    text-align: center;
+    margin-top: 335px;
+}  
+
+.cdd-button-text {
+  font-family: 'Pixter', sans-serif;
+  color: white;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: normal;
+  font-size: 1.125rem;
+}
+
+.cdd-button:hover {  
+  background-color: white;  
+  box-shadow: 15px 15px 0px 0px black;  
+  transform: translate(-5px, -5px);  
+}  
+
+.cdd-button:hover .cdd-button-text {
+  color: #e4379b;
+}  

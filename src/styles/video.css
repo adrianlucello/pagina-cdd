@@ -1,0 +1,46 @@
+.video-container {
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+  background-color: black;
+}
+
+.video-container video {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Regras específicas para mobile */
+@media (max-width: 768px) {
+  .video-container {
+    aspect-ratio: 12 / 8;
+  }
+
+  .video-container video {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+    object-fit: cover;
+    object-position: center;
+    transform: translate(-50%, -50%);
+  }
+}
+
+/* Regras específicas para desktop */
+@media (min-width: 769px) {
+  .video-container {
+    width: 100%;
+    max-width: none;
+  }
+
+  .video-container video {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+  }
+}
