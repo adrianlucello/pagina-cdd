@@ -4,27 +4,49 @@ import '../styles/button.css';
 import '../styles/legacy-text.css';
 import '../styles/banner.css';
 
+// Função para detectar dispositivos iOS
+const isIOS = () => {
+  return [
+    'iPad Simulator',
+    'iPhone Simulator',
+    'iPod Simulator',
+    'iPad',
+    'iPhone',
+    'iPod'
+  ].includes(navigator.platform) || 
+  (navigator.userAgent.includes("Mac") && "ontouchend" in document);
+};
+
 // Header 1: Vídeo em loop
 const VideoHeader = () => {
   const videoRef = useRef(null);
   const [videoError, setVideoError] = useState(false);
+  const [isIOSDevice, setIsIOSDevice] = useState(false);
 
   useEffect(() => {
+    setIsIOSDevice(isIOS());
     const videoElement = videoRef.current;
     
     const handleCanPlay = () => {
-      const playPromise = videoElement.play();
-      
-      if (playPromise !== undefined) {
-        playPromise
-          .then(() => {
-            // Vídeo começou a reproduzir
-            console.log('Vídeo reproduzindo');
-          })
-          .catch(error => {
-            console.error('Erro ao reproduzir vídeo:', error);
-            setVideoError(true);
-          });
+      if (isIOS()) {
+        // Para iOS, tentamos reproduzir com um evento de usuário
+        videoElement.play().catch(error => {
+          console.error('Erro ao reproduzir vídeo no iOS:', error);
+          setVideoError(true);
+        });
+      } else {
+        const playPromise = videoElement.play();
+        
+        if (playPromise !== undefined) {
+          playPromise
+            .then(() => {
+              console.log('Vídeo reproduzindo');
+            })
+            .catch(error => {
+              console.error('Erro ao reproduzir vídeo:', error);
+              setVideoError(true);
+            });
+        }
       }
     };
 
@@ -33,11 +55,23 @@ const VideoHeader = () => {
       setVideoError(true);
     };
 
+    const handleIOSPlay = () => {
+      if (videoElement) {
+        videoElement.play().catch(error => {
+          console.error('Erro de reprodução no iOS:', error);
+        });
+      }
+    };
+
     if (videoElement) {
+      // Adicionar evento de toque para iOS
+      document.addEventListener('touchstart', handleIOSPlay, { once: true });
+
       videoElement.addEventListener('canplay', handleCanPlay);
       videoElement.addEventListener('error', handleError);
 
       return () => {
+        document.removeEventListener('touchstart', handleIOSPlay);
         videoElement.removeEventListener('canplay', handleCanPlay);
         videoElement.removeEventListener('error', handleError);
       };
@@ -48,7 +82,7 @@ const VideoHeader = () => {
     return (
       <section className="w-full bg-black flex justify-center items-center">
         <div className="video-container">
-          <p>Erro ao carregar o vídeo</p>
+          <p>Erro ao carregar o vídeo. Por favor, atualize a página.</p>
         </div>
       </section>
     );
@@ -61,13 +95,17 @@ const VideoHeader = () => {
           ref={videoRef}
           muted
           playsInline
+          webkit-playsinline="true"
+          x5-playsinline="true"
+          x5-video-player-type="h5"
+          x5-video-player-fullscreen="false"
           loop
-          preload="auto"
+          preload="metadata"
           disablePictureInPicture
           controlsList="nodownload noplaybackrate"
           width="100%"
           height="auto"
-          poster="/videodalogo-poster.jpg"  // Adicionar um poster para melhor UX
+          poster="/videodalogo-poster.jpg"
         >
           <source 
             src="/videodalogo.mp4" 
@@ -75,6 +113,13 @@ const VideoHeader = () => {
           />
           Seu navegador não suporta vídeos.
         </video>
+        {isIOSDevice && (
+          <div className="ios-play-overlay">
+            <button onClick={() => videoRef.current?.play()}>
+              Reproduzir Vídeo
+            </button>
+          </div>
+        )}
       </div>
     </section>
   );
